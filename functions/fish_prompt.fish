@@ -7,6 +7,14 @@ function __print_color
     set_color normal
 end
 
+function __print_bold
+    set -l string $argv[1]
+
+    set_color -o
+    printf $string
+    set_color normal
+end
+
 function __git_upstream_configured
     git rev-parse --abbrev-ref @"{u}" > /dev/null 2>&1
 end
@@ -36,6 +44,8 @@ function fish_prompt -d "Tricoder's fish prompt"
              if test ! -z "$git_ahead"
                 __print_color $fish_color_git " $git_ahead"
             end
+        else
+          printf "Upstream not configured"
         end
     end
 
