@@ -4,7 +4,8 @@
 
 Just a theme yo!
 
-![theme-tricoder]
+![screen1]
+![screen2]
 
 ## Install
 
