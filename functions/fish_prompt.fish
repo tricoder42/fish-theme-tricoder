@@ -30,7 +30,11 @@ end
 function fish_prompt -d "Tricoder's fish prompt"
     set -l __glyph_branch " \uf407 "
 
-    echo -e ""
+    set -l python_virtualenv (basename "$VIRTUAL_ENV")
+    if test -n $python_virtualenv
+      __print_color $fish_color_python "$python_virtualenv \ue606 "
+    end
+
     set -l pwd_path (prompt_pwd)
     __print_color $fish_color_cwd "$pwd_path"
 
