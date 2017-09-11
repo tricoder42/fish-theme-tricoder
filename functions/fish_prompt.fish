@@ -23,8 +23,12 @@ function __git_commit_count
     string split "" (git rev-list --left-right --count HEAD...@"{u}" 2>&1)
 end
 
+function __git_tag
+    git describe --exact-match --tags HEAD 2>/dev/null
+end
+
 function fish_prompt -d "Tricoder's fish prompt"
-    set -l __glyph_branch " ᄉ"
+    set -l __glyph_branch " \uf407 "
 
     echo -e ""
     set -l pwd_path (prompt_pwd)
@@ -51,10 +55,10 @@ function fish_prompt -d "Tricoder's fish prompt"
             set -l git_action
             if test $commit_ahead -gt 0 -a $commit_behind -gt 0
                 # need merge
-                set git_action '\uf126'
+                set git_action '\uf402'
             else if test $commit_ahead -gt 0
                 # need push
-                set git_action '\uf0ee'
+                set git_action '\uf40a'
             else if test $commit_behind -gt 0
                 # need fast forward
                 set git_action '\uf102'
@@ -80,7 +84,11 @@ function fish_prompt -d "Tricoder's fish prompt"
         end
 
         __print_color $fish_color_git " ($branch_local$branch_delimiter$branch_remote)"
+
+        if set -l git_tag (__git_tag)
+            __print_color $fish_color_git " \uf02b $git_tag"
+        end
     end
 
-    printf "\e[K\n>>= "
+    printf "\e[K\n\uf105 "
 end
