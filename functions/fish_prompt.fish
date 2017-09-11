@@ -37,6 +37,12 @@ function fish_prompt -d "Tricoder's fish prompt"
     if set -l branch_local (git_branch_name)
         set -l branch_remote
         set -l branch_delimiter
+        set -l branch_name (git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+        set -l is_detached ""
+        if [ $branch_name = "HEAD" ]
+          set is_detached "\uf127 "
+        end
 
         if set -l git_upstream (__git_upstream)
             set branch_delimiter "$__glyph_branch"
@@ -51,7 +57,7 @@ function fish_prompt -d "Tricoder's fish prompt"
             set -l commit_count (__git_commit_count)
             set -l commit_ahead (string trim $commit_count[1])
             set -l commit_behind (string trim $commit_count[3])
-            
+
             set -l git_action
             if test $commit_ahead -gt 0 -a $commit_behind -gt 0
                 # need merge
@@ -83,7 +89,7 @@ function fish_prompt -d "Tricoder's fish prompt"
             __print_color $fish_color_git " $commit_behind $git_action $commit_ahead"
         end
 
-        __print_color $fish_color_git " ($branch_local$branch_delimiter$branch_remote)"
+        __print_color $fish_color_git " $is_detached($branch_local$branch_delimiter$branch_remote)"
 
         if set -l git_tag (__git_tag)
             __print_color $fish_color_git " \uf02b $git_tag"
