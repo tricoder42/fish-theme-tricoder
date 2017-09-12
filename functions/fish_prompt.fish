@@ -95,8 +95,21 @@ function fish_prompt -d "Tricoder's fish prompt"
 
         __print_color $fish_color_git " $is_detached($branch_local$branch_delimiter$branch_remote)"
 
-        if set -l git_tag (__git_tag)
-            __print_color $fish_color_git " \uf02b $git_tag"
+        # Show Git tag for current commit
+        # If there're more than one tag, show the first and multiple tag icon
+        set -l git_tags (__git_tag)
+        set -l git_tags_count (count $git_tags)
+
+        if test $git_tags_count -gt 0
+            # Single tag icon
+            set -l git_tag_icon "\uf02b"
+
+            if test $git_tags_count -gt 1
+              # Multiple tags icon
+              set git_tag_icon "\uf02c"
+            end
+
+            __print_color $fish_color_git " $git_tag_icon $git_tags[1]"
         end
     end
 
