@@ -16,7 +16,7 @@ function __print_bold
 end
 
 function __git_upstream
-    string split "/" -- (git rev-parse --abbrev-ref @"{u}" 2>/dev/null)
+    string split "/" -m 1 -- (git rev-parse --abbrev-ref @"{u}" 2>/dev/null)
 end
 
 function __git_commit_count
