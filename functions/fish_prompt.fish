@@ -24,7 +24,7 @@ function __git_commit_count
 end
 
 function __git_tag
-    git describe --exact-match --tags HEAD 2>/dev/null
+    git tag -l --points-at HEAD 2>/dev/null
 end
 
 function fish_prompt -d "Tricoder's fish prompt"
@@ -74,23 +74,23 @@ function fish_prompt -d "Tricoder's fish prompt"
                 set git_action '\uf102'
             else
                 # all good!
-                set git_action '\uf109'
+                set git_action '\uf113'
             end
 
 
             if test $commit_ahead -gt 0
-              set commit_ahead "+$commit_ahead"
+              set commit_ahead " +$commit_ahead"
             else
-              set commit_ahead "--"
+              set commit_ahead ""
             end
 
             if test $commit_behind -gt 0
-              set commit_behind "-$commit_behind"
+              set commit_behind "-$commit_behind "
             else
-              set commit_behind "--"
+              set commit_behind ""
             end
 
-            __print_color $fish_color_git " $commit_behind $git_action $commit_ahead"
+            __print_color $fish_color_git " $commit_behind$git_action$commit_ahead"
         end
 
         __print_color $fish_color_git " $is_detached($branch_local$branch_delimiter$branch_remote)"
