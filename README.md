@@ -12,7 +12,7 @@ Just a theme yo!
 With [fisherman]
 
 ```
-fisher tricoder42/theme-tricoder
+fisher tricoder42/fish-theme-tricoder
 ```
 
 [slack-link]: https://fisherman-wharf.herokuapp.com
