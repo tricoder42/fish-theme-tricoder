@@ -16,11 +16,11 @@ function __print_bold
 end
 
 function __git_upstream
-    string split "/" -- (git rev-parse --abbrev-ref @"{u}" 2>&1)
+    string split "/" -- (git rev-parse --abbrev-ref @"{u}" 2>/dev/null)
 end
 
 function __git_commit_count
-    string split "" (git rev-list --left-right --count HEAD...@"{u}" 2>&1)
+    string split "" (git rev-list --left-right --count HEAD...@"{u}" 2>/dev/null)
 end
 
 function __git_tag
