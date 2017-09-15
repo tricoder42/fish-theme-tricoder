@@ -62,6 +62,10 @@ function fish_prompt -d "Tricoder's fish prompt"
             set -l commit_ahead (string trim $commit_count[1])
             set -l commit_behind (string trim $commit_count[3])
 
+            if test -z $commit_behind
+              set commit_behind 0
+            end
+
             set -l git_action
             if test $commit_ahead -gt 0 -a $commit_behind -gt 0
                 # need merge
