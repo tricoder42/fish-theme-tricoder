@@ -20,7 +20,7 @@ function __git_upstream
 end
 
 function __git_commit_count
-    string split "" (git rev-list --left-right --count HEAD...@"{u}" 2>/dev/null)
+    string split \t (git rev-list --left-right --count HEAD...@"{u}" 2>/dev/null)
 end
 
 function __git_tag
@@ -60,7 +60,7 @@ function fish_prompt -d "Tricoder's fish prompt"
 
             set -l commit_count (__git_commit_count)
             set -l commit_ahead (string trim $commit_count[1])
-            set -l commit_behind (string trim $commit_count[3])
+            set -l commit_behind (string trim $commit_count[2])
 
             if test -z $commit_behind
               set commit_behind 0
